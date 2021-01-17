@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FontAwesome from "react-fontawesome";
+import Modal from "react-modal";
 import "./Image.scss";
 
 class Image extends React.Component {
@@ -16,6 +17,7 @@ class Image extends React.Component {
       size: 200,
       rotation: 0,
       hidden: false,
+      showLarge: false,
     };
   }
 
@@ -39,6 +41,10 @@ class Image extends React.Component {
     } else this.setState({ rotation: 0 });
   }
 
+  showLarge() {
+    this.setState({ showLarge: true });
+  }
+
   componentDidMount() {
     this.calcImageSize();
   }
@@ -59,6 +65,31 @@ class Image extends React.Component {
           display: this.state.hidden ? "none" : "inline-block",
         }}
       >
+        <Modal
+          isOpen={this.state.showLarge}
+          onRequestClose={() => {
+            this.setState({ showLarge: false });
+          }}
+          style={{ content: { backgroundColor: "#33333360" } }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <img
+              src={this.urlFromDto(this.props.dto)}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "100%",
+              }}
+            ></img>
+          </div>
+        </Modal>
         <div
           style={{
             transform: `rotate(-${this.state.rotation}deg)`,
@@ -80,7 +111,14 @@ class Image extends React.Component {
               this.hideImage();
             }}
           />
-          <FontAwesome className="image-icon" name="expand" title="expand" />
+          <FontAwesome
+            className="image-icon"
+            name="expand"
+            title="expand"
+            onClick={() => {
+              this.showLarge();
+            }}
+          />
         </div>
       </div>
     );
