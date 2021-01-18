@@ -7,28 +7,15 @@ import "./Image.scss";
 class Image extends React.Component {
   static propTypes = {
     dto: PropTypes.object,
-    galleryWidth: PropTypes.number,
   };
 
   constructor(props) {
     super(props);
-    this.calcImageSize = this.calcImageSize.bind(this);
     this.state = {
-      size: 200,
       rotation: 0,
       hidden: false,
       showLarge: false,
     };
-  }
-
-  calcImageSize() {
-    const { galleryWidth } = this.props;
-    const targetSize = 200;
-    const imagesPerRow = Math.round(galleryWidth / targetSize);
-    const size = galleryWidth / imagesPerRow;
-    this.setState({
-      size,
-    });
   }
 
   hideImage() {
@@ -45,10 +32,6 @@ class Image extends React.Component {
     this.setState({ showLarge: true });
   }
 
-  componentDidMount() {
-    this.calcImageSize();
-  }
-
   urlFromDto(dto) {
     return `https://farm${dto.farm}.staticflickr.com/${dto.server}/${dto.id}_${dto.secret}.jpg`;
   }
@@ -59,8 +42,8 @@ class Image extends React.Component {
         className="image-root"
         style={{
           backgroundImage: `url(${this.urlFromDto(this.props.dto)})`,
-          width: this.state.size + "px",
-          height: this.state.size + "px",
+          width: this.props.imageSize + "px",
+          height: this.props.imageSize + "px",
           transform: `rotate(${this.state.rotation}deg)`,
           display: this.state.hidden ? "none" : "inline-block",
         }}
