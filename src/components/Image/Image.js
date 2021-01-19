@@ -4,6 +4,8 @@ import FontAwesome from "react-fontawesome";
 import Modal from "react-modal";
 import "./Image.scss";
 
+Modal.setAppElement('#app')
+
 class Image extends React.Component {
   static propTypes = {
     dto: PropTypes.object,

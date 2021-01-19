@@ -14,26 +14,24 @@ const SortableImage = SortableElement(({ key, index, dto, imageSize }) => {
 const SortableGallery = SortableContainer(
   ({ images, imageSize, imagesPerRow, imagesInDOM, loadMoreImages }) => {
     return (
-      <div>
-        <InfiniteScroll
-          className="gallery-root"
-          style={{
-            gridTemplateColumns: `repeat(${imagesPerRow}, 1fr)`,
-          }}
-          dataLength={imagesInDOM}
-          next={loadMoreImages}
-          hasMore={imagesInDOM < images.length}
-        >
-          {images.slice(0, imagesInDOM).map((image, index) => (
-            <SortableImage
-              key={"image-" + image.id}
-              index={index}
-              dto={image}
-              imageSize={imageSize}
-            />
-          ))}
-        </InfiniteScroll>
-      </div>
+      <InfiniteScroll
+        className="gallery-root"
+        style={{
+          gridTemplateColumns: `repeat(${imagesPerRow}, 1fr)`,
+        }}
+        dataLength={imagesInDOM}
+        next={loadMoreImages}
+        hasMore={imagesInDOM < images.length}
+      >
+        {images.slice(0, imagesInDOM).map((image, index) => (
+          <SortableImage
+            key={"image-" + image.id}
+            index={index}
+            dto={image}
+            imageSize={imageSize}
+          />
+        ))}
+      </InfiniteScroll>
     );
   }
 );
@@ -58,6 +56,7 @@ class Gallery extends React.Component {
   }
 
   getImages(tag) {
+    this.setState({ images: [], imagesInDOM: 0 });
     const getImagesUrl = `services/rest/?method=flickr.photos.search&api_key=522c1f9009ca3609bcbaf08545f067ad&tags=${tag}&tag_mode=any&per_page=4000&format=json&nojsoncallback=1`;
     const baseUrl = "https://api.flickr.com/";
     axios({
@@ -76,14 +75,13 @@ class Gallery extends React.Component {
           this.setState({ images: res.photos.photo });
         }
         if (res.photos.photo.length >= 100)
-          this.setState((state) => ({
-            imagesInDOM: (state.imagesInDOM += 100),
-          }));
+          this.setState({
+            imagesInDOM: 100,
+          });
         else
-          this.setState((state) => ({
-            imagesInDOM: (state.imagesInDOM += res.photos.photo.length),
-          }));
-        window.console.log("num photos:", res.photos.photo.length);
+          this.setState({
+            imagesInDOM: res.photos.photo.length,
+          });
         this.calcImageSize();
       });
   }
@@ -116,7 +114,6 @@ class Gallery extends React.Component {
   }
 
   loadMoreImages() {
-    window.console.log("loading more");
     if (this.state.images.length > this.state.imagesInDOM + 100)
       this.setState((state) => ({ imagesInDOM: (state.imagesInDOM += 100) }));
     else this.setState({ imagesInDOM: this.state.images.length });
