@@ -3,6 +3,27 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import Image from "../Image";
 import "./Gallery.scss";
+import { SortableContainer, SortableElement } from "react-sortable-hoc";
+import arrayMove from "array-move";
+
+const SortableImage = SortableElement(({ key, index, dto, imageSize }) => {
+  return <Image key={key} index={index} dto={dto} imageSize={imageSize} />;
+});
+
+const SortableGallery = SortableContainer(({ images, imageSize }) => {
+  return (
+    <div>
+      {images.map((image, index) => (
+        <SortableImage
+          key={"image-" + image.id}
+          index={index}
+          dto={image}
+          imageSize={imageSize}
+        />
+      ))}
+    </div>
+  );
+});
 
 class Gallery extends React.Component {
   static propTypes = {
@@ -44,7 +65,6 @@ class Gallery extends React.Component {
 
   componentDidMount() {
     this.getImages(this.props.tag);
-    this.calcImageSize();
     window.addEventListener("resize", this.calcImageSize);
   }
 
@@ -64,24 +84,24 @@ class Gallery extends React.Component {
     this.setState({ imageSize, imagesPerRow });
   }
 
+  onSortEnd = ({ oldIndex, newIndex }) => {
+    this.setState(({ images }) => ({
+      images: arrayMove(images, oldIndex, newIndex),
+    }));
+  };
+
   render() {
     return (
-      <div
-        className="gallery-root"
-        style={{
-          gridTemplateColumns: `repeat(${this.state.imagesPerRow}, 1fr)`,
-        }}
-      >
-        {this.state.images.map((dto) => {
-          return (
-            <Image
-              key={"image-" + dto.id}
-              dto={dto}
-              imageSize={this.state.imageSize}
-            />
-          );
-        })}
-      </div>
+        <SortableGallery
+         className="gallery-root"
+          axis={"xy"}
+          style={{
+            gridTemplateColumns: `repeat(${this.state.imagesPerRow}, 1fr)`,
+          }}
+          images={this.state.images}
+          imageSize={this.state.imageSize}
+          onSortEnd={this.onSortEnd}
+        />
     );
   }
 }
