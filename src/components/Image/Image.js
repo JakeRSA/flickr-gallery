@@ -4,7 +4,7 @@ import FontAwesome from "react-fontawesome";
 import Modal from "react-modal";
 import "./Image.scss";
 
-Modal.setAppElement('#app')
+Modal.setAppElement("#app");
 
 class Image extends React.Component {
   static propTypes = {
@@ -55,24 +55,50 @@ class Image extends React.Component {
           onRequestClose={() => {
             this.setState({ showLarge: false });
           }}
-          style={{ content: { backgroundColor: "#33333360" } }}
+          className="image-modal"
         >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-              height: "100%",
-            }}
-          >
-            <img
-              src={this.urlFromDto(this.props.dto)}
-              style={{
-                maxWidth: "100%",
-                maxHeight: "100%",
-              }}
-            ></img>
+          <div className="modal-content">
+            <span className="modal-header">
+              <span className="modal-title-span">
+                <p>
+                  {this.props.dto.title ? this.props.dto.title : "<no title>"}
+                </p>
+
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={this.urlFromDto(this.props.dto)}
+                  download={true}
+                >
+                  <FontAwesome
+                    name="arrow-circle-down"
+                    title="download image"
+                    className="modal-icon"
+                  />
+                </a>
+              </span>
+              <FontAwesome
+                name="times"
+                title="close"
+                className="modal-icon"
+                onClick={() => {
+                  this.setState({ showLarge: false });
+                }}
+              />
+            </span>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={this.urlFromDto(this.props.dto)}
+            >
+              <img
+                src={this.urlFromDto(this.props.dto)}
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                }}
+              ></img>
+            </a>
           </div>
         </Modal>
         <div
