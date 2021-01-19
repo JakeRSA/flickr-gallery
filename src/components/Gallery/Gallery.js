@@ -5,13 +5,14 @@ import Image from "../Image";
 import "./Gallery.scss";
 import { SortableContainer, SortableElement } from "react-sortable-hoc";
 import arrayMove from "array-move";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const SortableImage = SortableElement(({ key, index, dto, imageSize }) => {
   return <Image key={key} index={index} dto={dto} imageSize={imageSize} />;
 });
 
 const SortableGallery = SortableContainer(
-  ({ images, imageSize, imagesPerRow }) => {
+  ({ images, imageSize, imagesPerRow, imagesInDOM, loadMoreImages }) => {
     return (
       <div
         className="gallery-root"
@@ -19,14 +20,21 @@ const SortableGallery = SortableContainer(
           gridTemplateColumns: `repeat(${imagesPerRow}, 1fr)`,
         }}
       >
-        {images.map((image, index) => (
-          <SortableImage
-            key={"image-" + image.id}
-            index={index}
-            dto={image}
-            imageSize={imageSize}
-          />
-        ))}
+        <InfiniteScroll
+          dataLength={imagesInDOM}
+          next={loadMoreImages}
+          hasMore={imagesInDOM < images.length}
+        >
+          {window.console.log(imagesInDOM)}
+          {images.slice(0, imagesInDOM).map((image, index) => (
+            <SortableImage
+              key={"image-" + image.id}
+              index={index}
+              dto={image}
+              imageSize={imageSize}
+            />
+          ))}
+        </InfiniteScroll>
       </div>
     );
   }
@@ -43,13 +51,16 @@ class Gallery extends React.Component {
       images: [],
       imageSize: 200,
       imagesPerRow: 5,
+      imagesInDOM: 0,
     };
 
     this.calcImageSize = this.calcImageSize.bind(this);
+    this.onSortEnd = this.onSortEnd.bind(this);
+    this.loadMoreImages = this.loadMoreImages.bind(this);
   }
 
   getImages(tag) {
-    const getImagesUrl = `services/rest/?method=flickr.photos.search&api_key=522c1f9009ca3609bcbaf08545f067ad&tags=${tag}&tag_mode=any&per_page=100&format=json&nojsoncallback=1`;
+    const getImagesUrl = `services/rest/?method=flickr.photos.search&api_key=522c1f9009ca3609bcbaf08545f067ad&tags=${tag}&tag_mode=any&per_page=4000&format=json&nojsoncallback=1`;
     const baseUrl = "https://api.flickr.com/";
     axios({
       url: getImagesUrl,
@@ -66,6 +77,14 @@ class Gallery extends React.Component {
         ) {
           this.setState({ images: res.photos.photo });
         }
+        if (res.photos.photo.length >= 100)
+          this.setState((state) => ({
+            imagesInDOM: (state.imagesInDOM += 100),
+          }));
+        else
+          this.setState((state) => ({
+            imagesInDOM: (state.imagesInDOM += res.photos.photo.length),
+          }));
         this.calcImageSize();
       });
   }
@@ -91,11 +110,18 @@ class Gallery extends React.Component {
     this.setState({ imageSize, imagesPerRow });
   }
 
-  onSortEnd = ({ oldIndex, newIndex }) => {
+  onSortEnd({ oldIndex, newIndex }) {
     this.setState(({ images }) => ({
       images: arrayMove(images, oldIndex, newIndex),
     }));
-  };
+  }
+
+  loadMoreImages() {
+    window.console.log("loading more");
+    if (this.state.images.length > this.state.imagesInDOM + 100)
+      this.setState((state) => ({ imagesInDOM: (state.imagesInDOM += 100) }));
+    else this.setState({ imagesInDOM: this.state.images.length });
+  }
 
   render() {
     return (
@@ -105,6 +131,8 @@ class Gallery extends React.Component {
         imageSize={this.state.imageSize}
         imagesPerRow={this.state.imagesPerRow}
         onSortEnd={this.onSortEnd}
+        imagesInDOM={this.state.imagesInDOM}
+        loadMoreImages={this.loadMoreImages}
       />
     );
   }
