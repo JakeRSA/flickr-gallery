@@ -14,18 +14,16 @@ const SortableImage = SortableElement(({ key, index, dto, imageSize }) => {
 const SortableGallery = SortableContainer(
   ({ images, imageSize, imagesPerRow, imagesInDOM, loadMoreImages }) => {
     return (
-      <div
-        className="gallery-root"
-        style={{
-          gridTemplateColumns: `repeat(${imagesPerRow}, 1fr)`,
-        }}
-      >
+      <div>
         <InfiniteScroll
+          className="gallery-root"
+          style={{
+            gridTemplateColumns: `repeat(${imagesPerRow}, 1fr)`,
+          }}
           dataLength={imagesInDOM}
           next={loadMoreImages}
           hasMore={imagesInDOM < images.length}
         >
-          {window.console.log(imagesInDOM)}
           {images.slice(0, imagesInDOM).map((image, index) => (
             <SortableImage
               key={"image-" + image.id}
@@ -85,6 +83,7 @@ class Gallery extends React.Component {
           this.setState((state) => ({
             imagesInDOM: (state.imagesInDOM += res.photos.photo.length),
           }));
+        window.console.log("num photos:", res.photos.photo.length);
         this.calcImageSize();
       });
   }
