@@ -55,15 +55,10 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  top: 40px;
-  left: 40px;
-  right: 40px;
-  bottom: 40px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: #33333360;
-}
-
-.image-caption {
-  margin-bottom: 20px;
 }
 
 .modal-content {
@@ -94,15 +89,14 @@
     top: 0;
     padding: 20px;
     a:active {
-      text-decoration: none; 
+      text-decoration: none;
     }
     a:visited {
-      text-decoration: none; 
+      text-decoration: none;
     }
     .modal-title-span {
       display: flex;
       align-items: center;
-      
     }
   }
   &:hover {
@@ -111,6 +105,3 @@
     }
   }
 }
-
-
-
