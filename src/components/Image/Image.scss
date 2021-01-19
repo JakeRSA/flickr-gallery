@@ -7,6 +7,13 @@
   position: relative;
   border: 1px solid white;
 
+  .thumbnail-img {
+    width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+  }
+
   > div {
     visibility: hidden;
     background: rgba(0, 0, 0, 0.7);

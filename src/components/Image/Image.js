@@ -47,14 +47,19 @@ class Image extends React.Component {
       <div
         className="image-root"
         style={{
-          backgroundImage: `url(${this.urlFromDto(this.props.dto)})`,
           width: this.props.imageSize + "px",
           height: this.props.imageSize + "px",
           transform: `rotate(${this.state.rotation}deg)`,
           display: this.state.hidden ? "none" : "inline-block",
-          filter: `brightness(${this.state.brightness}%) contrast(${this.state.contrast}%) hue-rotate(${this.state.hue}deg) saturate(${this.state.saturation}%)`,
         }}
       >
+        <img
+          className="thumbnail-img"
+          src={this.urlFromDto(this.props.dto)}
+          style={{
+            filter: `brightness(${this.state.brightness}%) contrast(${this.state.contrast}%) hue-rotate(${this.state.hue}deg) saturate(${this.state.saturation}%)`,
+          }}
+        />
         <Modal
           isOpen={this.state.showLarge}
           onRequestClose={() => {
