@@ -64,6 +64,15 @@ class Gallery extends React.Component {
     this.setState({ imageSize, imagesPerRow });
   }
 
+  trackMouse(event) {
+    this.setState({mouseX: event.clientX, mouseY: event.clientY})
+  }
+
+  handleDragImage(imageUrl) {
+    window.addEventListener("mousemove", (e) => this.trackMouse(e))
+    this.setState({ dragging: imageUrl });
+  }
+
   render() {
     return (
       <div
@@ -72,12 +81,28 @@ class Gallery extends React.Component {
           gridTemplateColumns: `repeat(${this.state.imagesPerRow}, 1fr)`,
         }}
       >
+        {this.state.dragging && (
+          <img
+          className="draggable-img"
+          src={this.state.dragging}
+          style={{
+            height: this.state.imageSize,
+            width: this.state.imageSize,
+            top: this.state.mouseY,
+            left: this.state.mouseX,
+            transform: "translate(-50%, -50%)"
+          }}
+          ></img>
+        )}
         {this.state.images.map((dto) => {
           return (
             <Image
               key={"image-" + dto.id}
               dto={dto}
               imageSize={this.state.imageSize}
+              onDragImage={(url) => {
+                this.handleDragImage(url);
+              }}
             />
           );
         })}

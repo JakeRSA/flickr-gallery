@@ -15,7 +15,14 @@ class Image extends React.Component {
       rotation: 0,
       hidden: false,
       showLarge: false,
+      dragging: false,
     };
+  }
+
+  handleMouseDown() {
+    this.setState({dragging: true})
+    this.props.onDragImage(this.urlFromDto(this.props.dto))
+    window.console.log('mousedown')
   }
 
   hideImage() {
@@ -47,6 +54,7 @@ class Image extends React.Component {
           transform: `rotate(${this.state.rotation}deg)`,
           display: this.state.hidden ? "none" : "inline-block",
         }}
+        onMouseDown={() => {this.handleMouseDown()}}
       >
         <Modal
           isOpen={this.state.showLarge}
