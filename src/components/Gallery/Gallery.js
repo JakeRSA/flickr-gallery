@@ -10,20 +10,27 @@ const SortableImage = SortableElement(({ key, index, dto, imageSize }) => {
   return <Image key={key} index={index} dto={dto} imageSize={imageSize} />;
 });
 
-const SortableGallery = SortableContainer(({ images, imageSize }) => {
-  return (
-    <div>
-      {images.map((image, index) => (
-        <SortableImage
-          key={"image-" + image.id}
-          index={index}
-          dto={image}
-          imageSize={imageSize}
-        />
-      ))}
-    </div>
-  );
-});
+const SortableGallery = SortableContainer(
+  ({ images, imageSize, imagesPerRow }) => {
+    return (
+      <div
+        className="gallery-root"
+        style={{
+          gridTemplateColumns: `repeat(${imagesPerRow}, 1fr)`,
+        }}
+      >
+        {images.map((image, index) => (
+          <SortableImage
+            key={"image-" + image.id}
+            index={index}
+            dto={image}
+            imageSize={imageSize}
+          />
+        ))}
+      </div>
+    );
+  }
+);
 
 class Gallery extends React.Component {
   static propTypes = {
@@ -92,16 +99,13 @@ class Gallery extends React.Component {
 
   render() {
     return (
-        <SortableGallery
-         className="gallery-root"
-          axis={"xy"}
-          style={{
-            gridTemplateColumns: `repeat(${this.state.imagesPerRow}, 1fr)`,
-          }}
-          images={this.state.images}
-          imageSize={this.state.imageSize}
-          onSortEnd={this.onSortEnd}
-        />
+      <SortableGallery
+        axis={"xy"}
+        images={this.state.images}
+        imageSize={this.state.imageSize}
+        imagesPerRow={this.state.imagesPerRow}
+        onSortEnd={this.onSortEnd}
+      />
     );
   }
 }
