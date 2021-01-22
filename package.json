@@ -18,8 +18,7 @@
     "start": "node server.js --env=dev",
     "test": "karma start",
     "test:watch": "karma start --autoWatch=true --singleRun=false",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "npm run dist && gh-pages-deploy",
     "clean-source": "rimraf README.md src test server.js webpack.config.js .yo-rc.json .travis.yml .eslintrc .editorconfig .babelrc karma.conf.js package.json"
   },
   "repository": "",
@@ -44,7 +43,6 @@
     "eslint-loader": "^1.0.0",
     "eslint-plugin-react": "^6.0.0",
     "file-loader": "^0.9.0",
-    "gh-pages": "^3.1.0",
     "gh-pages-deploy": "^0.4.2",
     "glob": "^7.0.0",
     "isparta-instrumenter-loader": "^1.0.0",
