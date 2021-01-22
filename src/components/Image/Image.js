@@ -49,7 +49,6 @@ class Image extends React.Component {
         style={{
           width: this.props.imageSize + "px",
           height: this.props.imageSize + "px",
-          transform: `rotate(${this.state.rotation}deg)`,
           display: this.state.hidden ? "none" : "inline-block",
         }}
       >
@@ -58,6 +57,7 @@ class Image extends React.Component {
           src={this.urlFromDto(this.props.dto)}
           style={{
             filter: `brightness(${this.state.brightness}%) contrast(${this.state.contrast}%) hue-rotate(${this.state.hue}deg) saturate(${this.state.saturation}%)`,
+            transform: `rotate(${this.state.rotation}deg)`,
           }}
         />
         <Modal
@@ -162,11 +162,7 @@ class Image extends React.Component {
             </span>
           </div>
         </Modal>
-        <div
-          style={{
-            transform: `rotate(-${this.state.rotation}deg)`,
-          }}
-        >
+        <div>
           <FontAwesome
             className="image-icon"
             name="sync-alt"
