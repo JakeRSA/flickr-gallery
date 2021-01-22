@@ -44,6 +44,7 @@ class Gallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      targetSize: 200,
       images: [],
       imageSize: 200,
       imagesPerRow: 5,
@@ -101,8 +102,7 @@ class Gallery extends React.Component {
 
   calcImageSize() {
     const galleryWidth = document.body.clientWidth;
-    const targetSize = 200;
-    const imagesPerRow = Math.floor(galleryWidth / targetSize);
+    const imagesPerRow = Math.floor(galleryWidth / this.state.targetSize);
     const imageSize = galleryWidth / imagesPerRow;
     this.setState({ imageSize, imagesPerRow });
   }
@@ -121,15 +121,33 @@ class Gallery extends React.Component {
 
   render() {
     return (
-      <SortableGallery
-        axis={"xy"}
-        images={this.state.images}
-        imageSize={this.state.imageSize}
-        imagesPerRow={this.state.imagesPerRow}
-        onSortEnd={this.onSortEnd}
-        imagesInDOM={this.state.imagesInDOM}
-        loadMoreImages={this.loadMoreImages}
-      />
+      <div>
+        {this.state.images.length > 0 && (
+          <div className="gallery-settings">
+            <label htmlFor="targetSize">thumbnail size</label>
+            <input
+              id="targetSize"
+              type="range"
+              min={150}
+              max={300}
+              onChange={(event) => {
+                this.setState({ targetSize: event.target.value });
+                this.calcImageSize();
+              }}
+            />
+          </div>
+        )}
+
+        <SortableGallery
+          axis={"xy"}
+          images={this.state.images}
+          imageSize={this.state.imageSize}
+          imagesPerRow={this.state.imagesPerRow}
+          onSortEnd={this.onSortEnd}
+          imagesInDOM={this.state.imagesInDOM}
+          loadMoreImages={this.loadMoreImages}
+        />
+      </div>
     );
   }
 }

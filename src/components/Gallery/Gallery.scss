@@ -11,6 +11,18 @@
   font-size: 20pt;
 }
 
+.gallery-settings {
+  display: flex;
+  justify-content: center;
+  background-color: #222;
+  color: white;
+  padding-bottom: 5px;
+  font-size: 1em;
+  > * {
+    margin: 5px;
+  }
+}
+
 .gallery-intro {
   font-size: 15pt;
 }
