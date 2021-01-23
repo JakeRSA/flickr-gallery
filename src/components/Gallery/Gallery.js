@@ -131,6 +131,7 @@ class Gallery extends React.Component {
               id="targetSize"
               type="range"
               min={150}
+              value={this.state.targetSize}
               max={300}
               onChange={(event) => {
                 this.setState({ targetSize: event.target.value });

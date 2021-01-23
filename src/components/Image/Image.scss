@@ -87,13 +87,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    visibility: hidden;
     box-sizing: border-box;
     width: 100%;
     font-weight: 600;
     background-color: rgba(0, 0, 0, 0.664);
     color: white;
-    position: absolute;
+    display: none;
     padding: 20px;
     top: 0px;
     a:active {
@@ -129,7 +128,7 @@
   }
   &:hover {
     .modal-header {
-      visibility: visible;
+      display: flex;
     }
     .modal-footer {
       display: flex;
