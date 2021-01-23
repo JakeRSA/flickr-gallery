@@ -63,6 +63,7 @@ class Image extends React.Component {
         <img
           className="thumbnail-img"
           src={this.urlFromDto(this.props.dto)}
+          alt={this.props.dto.title}
           style={{
             filter: `brightness(${this.state.brightness}%) contrast(${this.state.contrast}%) hue-rotate(${this.state.hue}deg) saturate(${this.state.saturation}%)`,
             transform: `rotate(${this.state.rotation}deg)`,
@@ -108,6 +109,7 @@ class Image extends React.Component {
             </span>
             <img
               src={this.urlFromDto(this.props.dto)}
+              alt={this.props.dto.title}
               style={{
                 maxWidth: "100%",
                 maxHeight: "100%",
