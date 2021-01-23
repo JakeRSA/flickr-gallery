@@ -48,5 +48,6 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "http://jakersa.github.io/flickr-gallery"
+  "homepage": "http://jakersa.github.io/flickr-gallery",
+  "devDependencies": {}
 }
