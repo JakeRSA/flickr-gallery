@@ -1,10 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import FontAwesome from "react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowCircleDown,
+  faExpand,
+  faSyncAlt,
+  faTimes,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
+
 import Modal from "react-modal";
 import "./Image.scss";
 
-Modal.setAppElement("#app");
+Modal.setAppElement("#root");
 
 class Image extends React.Component {
   static propTypes = {
@@ -82,15 +90,15 @@ class Image extends React.Component {
                   href={this.urlFromDto(this.props.dto)}
                   download={true}
                 >
-                  <FontAwesome
-                    name="arrow-circle-down"
+                  <FontAwesomeIcon
+                    icon={faArrowCircleDown}
                     title="download image"
                     className="modal-icon"
                   />
                 </a>
               </span>
-              <FontAwesome
-                name="times"
+              <FontAwesomeIcon
+                icon={faTimes}
                 title="close"
                 className="modal-icon"
                 onClick={() => {
@@ -163,25 +171,25 @@ class Image extends React.Component {
           </div>
         </Modal>
         <div>
-          <FontAwesome
+          <FontAwesomeIcon
             className="image-icon"
-            name="sync-alt"
+            icon={faSyncAlt}
             title="rotate"
             onClick={() => {
               this.rotateImage();
             }}
           />
-          <FontAwesome
+          <FontAwesomeIcon
             className="image-icon"
-            name="trash-alt"
+            icon={faTrashAlt}
             title="delete"
             onClick={() => {
               this.hideImage();
             }}
           />
-          <FontAwesome
+          <FontAwesomeIcon
             className="image-icon"
-            name="expand"
+            icon={faExpand}
             title="expand"
             onClick={() => {
               this.showLarge();

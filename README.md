@@ -1,33 +1,70 @@
-# Flickr Gallery
+# Getting Started with Create React App
 
-Welcome to the Flickr Gallery application.
-This app is simple, you write a tag at the top and you get images from flickr with that tag.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Your Tasks
+## Available Scripts
 
-### Step 1 - Installation
-- Fork this repo to your own account
-- Install the dependencies and run it
+In the project directory, you can run:
 
-### Step 2 - Image Actions
-Each image has three buttons that appear on mouse hover. You need to make them work.
-1. Delete: clicking the delete button should remove the image from the display.
-2. Rotate: each click should rotate the image by 90 degrees.
-3. Expand: clicking an image should display this image in a larger view.
+### `yarn start`
 
-### Step 3 - Gallery Actions
-1. Responsive:  the gallery adjusts the size of each image so that all the images will fit into the screen without margin. However, when the window is resized, the images are not fitted so well. Make sure the images are always adjusted to the window width.
-2. Infinite Scroll: currently the gallery displays only 100 images. Create a mechanism that loads more images from flickr when the user is scrolling past the last image.
-3. Drag & Drop: let your users choose the order of the images by adding an option to drag & drop images to their new position.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### Step 4 - Wrapping Up
-2. Try inovating the product, add any features you think are useful. **be creative, creative is good**.
-3. Deploy your result as a github page to `https://[YOUR_USERNAME].github.io/flickr-gallery/`
-4. Send us an email with your repo link and the deployed app link
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-## Tips
-- Write readable code, and use descriptive commits (we'll need to figure out what you did)
-- Write tests for the features you write and make sure they pass (tests are written in spec.js files)
-- Be responsible for your code. You may consult with Google about the code you write but you will need to explain what you did.
+### `yarn test`
 
-## Good Luck!
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `yarn build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `yarn eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `yarn build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
