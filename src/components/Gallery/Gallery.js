@@ -96,8 +96,10 @@ class Gallery extends React.Component {
     window.removeEventListener("resize", this.calcImageSize);
   }
 
-  componentWillReceiveProps(props) {
-    this.getImages(props.tag);
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.tag !== this.props.tag) {
+      this.getImages(this.props.tag);
+    }  
   }
 
   calcImageSize() {
