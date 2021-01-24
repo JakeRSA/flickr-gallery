@@ -12,8 +12,6 @@ import {
 import Modal from "react-modal";
 import "./Image.scss";
 
-Modal.setAppElement("#root");
-
 class Image extends React.Component {
   static propTypes = {
     dto: PropTypes.object,
@@ -70,6 +68,7 @@ class Image extends React.Component {
           }}
         />
         <Modal
+          ariaHideApp={false} // needs improvement for accessibility - this should be changed
           isOpen={this.state.showLarge}
           onRequestClose={() => {
             this.setState({ showLarge: false });

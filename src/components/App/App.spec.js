@@ -1,34 +1,28 @@
-import React from 'react';
-import {mount} from 'enzyme';
-import {expect} from 'chai';
-import App from './App.js';
+import React from "react";
+import { render, fireEvent } from "@testing-library/react";
+import App from "./App.js";
 
-describe('App', () => {
-  let wrapper;
-
+describe("App", () => {
+  let wrapper = null;
   beforeEach(() => {
-    wrapper = mount(
-      <App/>,
-      {attachTo: document.createElement('div')}
-    );
+    wrapper = render(<App />);
   });
 
-  afterEach(() => wrapper.detach());
-
-  it('renders a title correctly', () => {
-    expect(wrapper.find('h2').length).to.eq(1);
+  afterEach(() => {
+    wrapper.unmount();
   });
 
-  it('renders the search input correctly', () => {
-    expect(wrapper.find('input').length).to.eq(1);
+  it("renders title correctly", () => {
+    expect(wrapper.getByText("Flickr Gallery")).not.toBeNull();
   });
 
-  it('sets the tag correctly', done => {
-    wrapper.setState({
-      tag: 'test1'
-    }, () => {
-      expect(wrapper.find('input').prop('value')).to.eq('test1');
-      done();
-    });
+  it("renders the search input correctly", () => {
+    expect(wrapper.getByRole("textbox")).toBeInstanceOf(HTMLElement);
+  });
+
+  it("sets the tag correctly", () => {
+    const input = wrapper.getByRole("textbox");
+    fireEvent.change(input, { target: { value: "test tags" } });
+    expect(input.value).toBe("test tags");
   });
 });
