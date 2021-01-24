@@ -12,6 +12,10 @@ describe("App", () => {
     wrapper.unmount();
   });
 
+  it("renders", () => {
+    expect(wrapper).not.toBeUndefined()
+  })
+
   it("renders title correctly", () => {
     expect(wrapper.getByText("Flickr Gallery")).not.toBeNull();
   });
