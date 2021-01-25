@@ -9,17 +9,17 @@ Deployed to `https://jakersa.github.io/flickr-gallery/`
 
 ### Image Actions
 Each image has three buttons that appear on mouse hover.
-1. Delete: clicking the delete button should remove the image from the display.
-2. Rotate: each click should rotate the image by 90 degrees.
-3. Expand: clicking an image should display this image in a larger view.
+1. Delete: clicking the delete button removes the image from the display.
+2. Rotate: each click rotates the image by 90 degrees.
+3. Expand: clicking an image displays this image in a larger view.
 
 ### Gallery Actions
 1. Responsive:  the gallery adjusts the size of each image so that all the images will fit into the screen without margin, even when the window is resized.
 2. Infinite Scroll: images are loaded in batches of 100 images. When the user approaches the bottom of the gallery. Another 100 images are loaded
 3. Drag & Drop: Users can choose the order of the images by dragging & dropping images to their new position.
 
-### Wrapping Up
-1. Added a feature to play around with image filters when in full-size view. These filters are also applied to the smaller images so the user can create further customise the gallery.
+### Additional Features
+1. Added a feature to play around with image filters when in full-size view. These filters are also applied to the smaller images so the user can further customise the gallery.
 2. Also in the name of better customization, the gallery image size can be tweaked using a slider.
 3. Added a download image button
 
